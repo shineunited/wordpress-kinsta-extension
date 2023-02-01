@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace ShineUnited\WordPress\Kinsta\Provider;
 
 use ShineUnited\WordPress\Installer\Capability\ExtensionProvider as ExtensionProviderCapability;
-use ShineUnited\WordPress\Installer\Extension\RequirePathExtension;
-use ShineUnited\WordPress\Installer\Extension\InitializeConfigExtension;
-use ShineUnited\WordPress\Installer\Extension\DefineWPContentURLExtension;
+use ShineUnited\WordPress\Kinsta\Extension\StagingEnvironmentExtension;
+use ShineUnited\WordPress\Kinsta\Extension\DefineCDNUserdirsExtension;
+use ShineUnited\WordPress\Kinsta\Extension\DefinePluginURLExtension;
 
 /**
  * Extension Provider
@@ -28,8 +28,9 @@ class ExtensionProvider implements ExtensionProviderCapability {
 	 */
 	public function getExtensions(): array {
 		return [
-			new RequirePathExtension(__DIR__ . '/../../inc/dev-env.php', InitializeConfigExtension::PRIORITY + 1),
-			new RequirePathExtension(__DIR__ . '/../../inc/plugin-url.php', DefineWPContentURLExtension::PRIORITY + 1),
+			new StagingEnvironmentExtension(),
+			new DefineCDNUserdirsExtension(),
+			new DefinePluginURLExtension(),
 		];
 	}
 }
